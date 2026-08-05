@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070814" />
+  <meta name="description" content="DuoForge is a cinematic Java-powered duo matchmaking lobby built with custom data structures." />
+  <title>DuoForge — Intelligent Duo Matchmaking</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <nav class="nav shell">
+    <a class="brand" href="#top" aria-label="DuoForge home">
+      <span class="brand-mark">DF</span>
+      <span>DuoForge <b>Lobby</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="#matchmaking">Matchmaking</a>
+      <a href="#rankings">Rankings</a>
+      <a href="#architecture">DSA Engine</a>
+    </div>
+    <div class="engine-pill"><i></i><span>Java engine online</span></div>
+  </nav>
+
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> Data structures turned into a product</div>
+        <h1>Enter the arena.<br><em>Find your equal.</em></h1>
+        <p>A real-time duo matchmaking experience powered by a custom Java engine—Linked List player storage, BST discovery, rank-aware Queues, and Stack-based match history.</p>
+        <div class="hero-actions">
+          <a class="primary-cta" href="#matchmaking">Launch matchmaking <b>↗</b></a>
+          <button class="ghost-cta" id="demoMatchButton">Run demo duel <span>→</span></button>
+        </div>
+        <div class="hero-metrics">
+          <div><strong id="heroPlayers">—</strong><span>registered players</span></div>
+          <div><strong id="heroMatches">—</strong><span>matches forged</span></div>
+          <div><strong>04</strong><span>custom structures</span></div>
+        </div>
+      </div>
+
+      <div class="arena-stage" aria-label="Animated matchmaking arena">
+        <canvas id="arenaCanvas"></canvas>
+        <div class="arena-orbit orbit-a"></div>
+        <div class="arena-orbit orbit-b"></div>
+        <div class="arena-core">
+          <span>LIVE</span>
+          <strong>DUO<br>ENGINE</strong>
+          <small>rank-aware pairing</small>
+        </div>
+        <div class="fighter-card fighter-one">
+          <span>CHALLENGER A</span>
+          <strong id="fighterOne">#101</strong>
+          <small>MASTER TIER</small>
+        </div>
+        <div class="fighter-card fighter-two">
+          <span>CHALLENGER B</span>
+          <strong id="fighterTwo">#205</strong>
+          <small>ELITE TIER</small>
+        </div>
+        <div class="match-signal" id="matchSignal">MATCH FOUND</div>
+      </div>
+    </section>
+
+    <section class="ticker" aria-hidden="true">
+      <div><span>QUEUE</span><i></i><span>PAIR</span><i></i><span>DUEL</span><i></i><span>RANK UP</span><i></i><span>LINKED LIST</span><i></i><span>BST SEARCH</span><i></i><span>STACK HISTORY</span><i></i><span>QUEUE</span></div>
+    </section>
+
+    <section class="dashboard shell" id="matchmaking">
+      <div class="section-heading">
+        <div><span class="section-kicker">Mission control</span><h2>Forge the next matchup.</h2></div>
+        <p>Every action below reaches the Java API and mutates the same in-memory custom data structures used by the original console project.</p>
+      </div>
+
+      <div class="stat-grid">
+        <article class="stat-card"><span>Total players</span><strong id="totalPlayers">0</strong><small>Linked List nodes</small></article>
+        <article class="stat-card"><span>Match history</span><strong id="totalMatches">0</strong><small>Stack depth</small></article>
+        <article class="stat-card"><span>Waiting now</span><strong id="queuedPlayers">0</strong><small>Across 3 queues</small></article>
+        <article class="stat-card status-card"><span>System status</span><strong><i></i>ONLINE</strong><small>Java 21 HTTP engine</small></article>
+      </div>
+
+      <div class="control-grid">
+        <article class="control-card quick-card">
+          <div class="card-heading"><span>01</span><div><small>RANKED MODE</small><h3>Quick Match</h3></div></div>
+          <p>Enter a player ID. The engine locates or creates the player using the BST, then enqueues them in the correct rank tier.</p>
+          <form id="quickMatchForm">
+            <label>Player ID<input id="quickPlayerId" name="playerId" type="number" min="1" max="999999" placeholder="e.g. 777" required /></label>
+            <button class="action-button" type="submit"><span>Join ranked queue</span><b>↗</b></button>
+          </form>
+          <div class="algorithm-note"><b>Flow</b><span>BST lookup → Rank tier → Queue → Auto-pair</span></div>
+        </article>
+
+        <article class="control-card friend-card">
+          <div class="card-heading"><span>02</span><div><small>PRIVATE MODE</small><h3>Friend Duel</h3></div></div>
+          <p>Create a direct matchup and automatically build a mutual friend connection between both players.</p>
+          <form id="friendMatchForm">
+            <div class="split-inputs">
+              <label>Your ID<input id="friendPlayerId" name="playerId" type="number" min="1" max="999999" placeholder="101" required /></label>
+              <label>Friend ID<input id="friendOpponentId" name="friendId" type="number" min="1" max="999999" placeholder="205" required /></label>
+            </div>
+            <button class="action-button purple" type="submit"><span>Start friend duel</span><b>⚔</b></button>
+          </form>
+          <div class="algorithm-note"><b>Flow</b><span>BST lookup → ArrayList friends → Match Stack</span></div>
+        </article>
+
+        <article class="control-card activity-card">
+          <div class="card-heading"><span>03</span><div><small>LIVE FEED</small><h3>Arena Activity</h3></div></div>
+          <div class="activity-feed" id="activityFeed">
+            <div class="empty-state"><i></i><p>Waiting for your first action.</p></div>
+          </div>
+          <button class="reset-button" id="resetButton">Reset demo arena</button>
+        </article>
+      </div>
+
+      <div class="queue-board">
+        <div class="board-heading"><div><span class="section-kicker">FIFO telemetry</span><h3>Rank matchmaking queues</h3></div><span class="live-badge"><i></i> LIVE STATE</span></div>
+        <div class="queue-grid" id="queueGrid"></div>
+      </div>
+    </section>
+
+    <section class="rankings-section shell" id="rankings">
+      <div class="section-heading compact">
+        <div><span class="section-kicker">Competitive intelligence</span><h2>Players, ordered by performance.</h2></div>
+        <div class="view-toggle" role="group" aria-label="Player ordering">
+          <button class="active" data-view="leaderboard">Leaderboard</button>
+          <button data-view="bst">BST in-order</button>
+        </div>
+      </div>
+
+      <div class="rankings-grid">
+        <article class="leaderboard-card">
+          <div class="table-head"><span>Player</span><span>Tier</span><span>Rank</span><span>Record</span><span>Progress</span></div>
+          <div id="playersTable"></div>
+        </article>
+        <article class="history-card">
+          <div class="history-head"><div><span class="section-kicker">LIFO archive</span><h3>Match history</h3></div><span>Newest first</span></div>
+          <div class="match-list" id="matchList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="architecture-section" id="architecture">
+      <div class="shell">
+        <div class="section-heading">
+          <div><span class="section-kicker">Inside the engine</span><h2>Four structures. One living lobby.</h2></div>
+          <p>The UI is a product layer, but the core operations still demonstrate the exact Data Structures and Algorithms concepts required for an academic project.</p>
+        </div>
+        <div class="architecture-grid">
+          <article><span class="structure-icon">↝</span><small>LINEAR</small><h3>Player Linked List</h3><p>Maintains the complete registration record using custom head insertion and sequential traversal.</p><div><b>Insert</b><code>O(1)</code><b>Search</b><code>O(n)</code></div></article>
+          <article><span class="structure-icon">⌕</span><small>NON-LINEAR</small><h3>Player BST</h3><p>Indexes players by ID for faster discovery and produces a sorted in-order player view.</p><div><b>Average search</b><code>O(log n)</code><b>Worst</b><code>O(n)</code></div></article>
+          <article><span class="structure-icon">⇥</span><small>FIFO</small><h3>Ranked Queues</h3><p>Three linked queues separate Rookie, Elite, and Master players before fair auto-pairing.</p><div><b>Enqueue</b><code>O(1)</code><b>Dequeue</b><code>O(1)</code></div></article>
+          <article><span class="structure-icon">⇅</span><small>LIFO</small><h3>Match Stack</h3><p>Pushes every completed duel to the top, making the most recent match instantly available.</p><div><b>Push</b><code>O(1)</code><b>Read history</b><code>O(n)</code></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <a class="brand" href="#top"><span class="brand-mark">DF</span><span>DuoForge <b>Lobby</b></span></a>
+    <p>Java Data Structures Semester Project • Productized as a real matchmaking experience.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="player-drawer" id="playerDrawer" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose" aria-label="Close">×</button>
+    <span class="section-kicker">Player intelligence</span>
+    <h2 id="drawerPlayerId">Player #—</h2>
+    <div class="drawer-tier" id="drawerTier">ROOKIE</div>
+    <div class="drawer-stats" id="drawerStats"></div>
+    <div class="drawer-friends"><span>Friend network</span><div id="drawerFriends"></div></div>
+  </div>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

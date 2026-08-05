@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600" role="img" aria-labelledby="title desc">
+  <title id="title">DuoForge Lobby</title><desc id="desc">A Java data structures matchmaking product.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070814"/><stop offset="1" stop-color="#111633"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#68f5df"/><stop offset=".55" stop-color="#6ca8ff"/><stop offset="1" stop-color="#a783ff"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#6ca8ff" stop-opacity=".4"/><stop offset="1" stop-color="#6ca8ff" stop-opacity="0"/></radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="24"/></filter>
+  </defs>
+  <rect width="1600" height="600" rx="34" fill="url(#bg)"/>
+  <circle cx="1220" cy="260" r="270" fill="url(#glow)" filter="url(#blur)"/>
+  <g fill="none" stroke-width="2">
+    <ellipse cx="1220" cy="290" rx="245" ry="92" stroke="#68f5df" stroke-opacity=".35" transform="rotate(-13 1220 290)"/>
+    <ellipse cx="1220" cy="290" rx="190" ry="250" stroke="#a783ff" stroke-opacity=".26" transform="rotate(28 1220 290)"/>
+    <circle cx="1220" cy="290" r="112" stroke="#8fbdff" stroke-opacity=".35"/>
+  </g>
+  <circle cx="1220" cy="290" r="86" fill="#111833" stroke="#8cb9ff" stroke-opacity=".5"/>
+  <text x="1220" y="277" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#68f5df" letter-spacing="7">LIVE</text>
+  <text x="1220" y="322" text-anchor="middle" font-family="Arial, sans-serif" font-size="33" font-weight="700" fill="#ffffff">DUO ENGINE</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="100" y="82" width="58" height="58" rx="17" fill="url(#accent)"/><text x="129" y="119" text-anchor="middle" font-size="17" font-weight="800" fill="#070814">DF</text>
+    <text x="177" y="117" font-size="25" font-weight="700" fill="#ffffff">DuoForge <tspan fill="#68f5df">Lobby</tspan></text>
+    <text x="100" y="245" font-size="76" font-weight="800" fill="#ffffff">Enter the arena.</text>
+    <text x="100" y="330" font-size="76" font-weight="800" fill="url(#accent)">Find your equal.</text>
+    <text x="104" y="392" font-size="22" fill="#999fbc">A cinematic matchmaking product powered by custom Java</text>
+    <text x="104" y="426" font-size="22" fill="#999fbc">Linked List, BST, Queue, and Stack implementations.</text>
+    <rect x="100" y="483" width="302" height="62" rx="16" fill="url(#accent)"/><text x="251" y="522" text-anchor="middle" font-size="19" font-weight="800" fill="#070814">LAUNCH MATCHMAKING</text>
+  </g>
+</svg>
