@@ -17,7 +17,9 @@ ENV PORT=80
 
 EXPOSE 80
 
-# Fail during build instead of crashing after deployment
-RUN java --list-modules | grep -q "jdk.httpserver"
+# Build ke waqt verify karega ke Java exact location par available hai
+RUN test -x /opt/java/openjdk/bin/java \
+    && /opt/java/openjdk/bin/java -version
 
-CMD ["java", "--add-modules", "jdk.httpserver", "-jar", "/app/duoforge-lobby.jar"]
+# "java" ki jagah absolute executable path
+CMD ["/opt/java/openjdk/bin/java", "--add-modules", "jdk.httpserver", "-jar", "/app/duoforge-lobby.jar"]
