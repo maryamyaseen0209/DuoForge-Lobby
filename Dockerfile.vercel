@@ -3,10 +3,11 @@ FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
 COPY . .
 
-RUN chmod +x scripts/build.sh && scripts/build.sh
+RUN chmod +x scripts/build.sh \
+    && scripts/build.sh
 
 
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 
@@ -16,4 +17,7 @@ ENV PORT=80
 
 EXPOSE 80
 
-CMD ["sh", "-c", "echo Starting DuoForge on port ${PORT} && exec java --add-modules jdk.httpserver -jar /app/duoforge-lobby.jar"]
+# Fail during build instead of crashing after deployment
+RUN java --list-modules | grep -q "jdk.httpserver"
+
+CMD ["java", "--add-modules", "jdk.httpserver", "-jar", "/app/duoforge-lobby.jar"]
