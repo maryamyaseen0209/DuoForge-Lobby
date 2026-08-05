@@ -1,11 +1,19 @@
 FROM eclipse-temurin:21-jdk-alpine AS build
+
 WORKDIR /app
 COPY . .
+
 RUN chmod +x scripts/build.sh && scripts/build.sh
 
+
 FROM eclipse-temurin:21-jre-alpine
+
 WORKDIR /app
+
 COPY --from=build /app/build/duoforge-lobby.jar /app/duoforge-lobby.jar
-ENV PORT=8080
-EXPOSE 8080
-CMD ["java", "-jar", "/app/duoforge-lobby.jar"]
+
+ENV PORT=80
+
+EXPOSE 80
+
+CMD ["sh", "-c", "echo Starting DuoForge on port ${PORT} && exec java --add-modules jdk.httpserver -jar /app/duoforge-lobby.jar"]
